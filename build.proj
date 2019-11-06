@@ -19,11 +19,7 @@
   <PropertyGroup>
     <src>$(MSBuildProjectDirectory)/src</src>
     <SolutionToBuild>$(src)/Hello.Api.sln</SolutionToBuild>
-    <TestLogDir>$(MSBuildProjectDirectory)/log/tests</TestLogDir>
-    <IntTestLogDir>$(MSBuildProjectDirectory)/log/int-tests</IntTestLogDir>
-    <SaxonFile>$(MSBuildProjectDirectory)/build-agent/inttests-jenkins-jnlp-slave/saxon/saxon9he.jar</SaxonFile>
     <TrxToXmlConverter>$(MSBuildProjectDirectory)/build-agent/trx-to-xml.xslt</TrxToXmlConverter>
-
     <IsWindows>$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Create($([System.Runtime.InteropServices.OSPlatform]::Windows.ToString())))))</IsWindows>
     <IsOSX>$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Create($([System.Runtime.InteropServices.OSPlatform]::OSX.ToString())))))</IsOSX>
     <IsLinux>$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Create($([System.Runtime.InteropServices.OSPlatform]::Linux.ToString())))))</IsLinux>
