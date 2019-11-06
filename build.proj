@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Test">
+
+  <!-- Version properties -->
+
+  <PropertyGroup>
+    <ReleaseVersion>2020.2</ReleaseVersion>
+    <Timestamp>$([System.DateTime]::Now.ToString("yyyyMMdd'_'HHmmss"))</Timestamp>
+    <VersionMajor>1</VersionMajor>
+    <VersionMinor>0</VersionMinor>
+    <VersionPatch>0</VersionPatch>
+    <VersionBuild Condition="'$(VersionBuild)' == ''">0</VersionBuild>
+    <VersionString>$(ReleaseVersion)_$(Timestamp)</VersionString>
+    <VersionLatest>$(ReleaseVersion)-latest</VersionLatest>
+  </PropertyGroup>
+  
+
+  <!-- This property group contains things that should very seldom, if ever, need to change. -->
+  <PropertyGroup>
+    <src>$(MSBuildProjectDirectory)/src</src>
+    <SolutionToBuild>$(src)/Hello.Api.sln</SolutionToBuild>
+    <TestLogDir>$(MSBuildProjectDirectory)/log/tests</TestLogDir>
+    <IntTestLogDir>$(MSBuildProjectDirectory)/log/int-tests</IntTestLogDir>
+    <SaxonFile>$(MSBuildProjectDirectory)/build-agent/inttests-jenkins-jnlp-slave/saxon/saxon9he.jar</SaxonFile>
+    <TrxToXmlConverter>$(MSBuildProjectDirectory)/build-agent/trx-to-xml.xslt</TrxToXmlConverter>
+
+    <IsWindows>$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Create($([System.Runtime.InteropServices.OSPlatform]::Windows.ToString())))))</IsWindows>
+    <IsOSX>$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Create($([System.Runtime.InteropServices.OSPlatform]::OSX.ToString())))))</IsOSX>
+    <IsLinux>$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Create($([System.Runtime.InteropServices.OSPlatform]::Linux.ToString())))))</IsLinux>
+  </PropertyGroup>
+
+  <Target Name="Clean">
+    <MSBuild Projects="$(SolutionToBuild)" Targets="Clean" />
+  </Target>
+
+  <Target Name="Build">
+    <Exec Command="dotnet build $(SolutionToBuild) -p:Version=$(VersionMajor).$(VersionMinor).$(VersionPatch).$(VersionBuild)" />
+  </Target>
+
+</Project>

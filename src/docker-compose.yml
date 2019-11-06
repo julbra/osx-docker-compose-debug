@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  hello-api:
+    image: hello-api
+    build:
+      context: .
+      dockerfile: Hello.Api/Dockerfile
+    networks:
+      - default
+

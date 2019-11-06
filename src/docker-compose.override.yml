@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  hello-api:
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    ports:
+      - "${RCTR_DEV_SEARCH_PORT:-42180:80}"
