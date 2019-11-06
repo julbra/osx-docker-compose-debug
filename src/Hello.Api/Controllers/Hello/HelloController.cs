@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using JetBrains.Annotations;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Hello.Api.Controllers.Hello
 {
@@ -15,5 +18,13 @@ namespace Hello.Api.Controllers.Hello
         {
             public const string Hello = "hello";
         }
+
+        private readonly ILogger<RootController> _logger;
+
+        public HelloController([NotNull] ILogger<RootController> logger)
+        {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
     }
 }
